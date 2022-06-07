@@ -51,7 +51,9 @@ function MainLayout({ children }: { children: JSX.Element }) {
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }} />
+                <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center" }}>
+                    <strong>APPMOOVIES</strong>
+                </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -60,7 +62,7 @@ function MainLayout({ children }: { children: JSX.Element }) {
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                         <Card>
                             {children}
-                        </Card>  
+                        </Card>
                     </div>
                 </Content>
                 <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

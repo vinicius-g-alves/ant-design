@@ -46,22 +46,29 @@ function Home() {
         getPopularMovies()
     }, [])
 
+    const styles: React.CSSProperties = {
+        overflowX: "scroll",
+        overflowY: "hidden",
+        whiteSpace: "nowrap"
+    }
 
     return (
         <>
             <div>
                 <section>
-                <Title>Mais Populares</Title>
-                    <Row justify="center">
-                        {popular.map((popMovie: PopularMovies) => {
-                            return (
-                                <>
-                                    <Col span={7}>
-                                        <CardLayout key={popMovie.id} photo={popMovie.poster_path} title={popMovie.title}/>
-                                    </Col>
-                                </>
-                            )
-                        })}
+                    <Title>Mais Populares</Title>
+                    <Row>
+                        <div style={styles}>
+                            {popular.map((popMovie: PopularMovies) => {
+                                return (
+                                    <>
+                                        <Col span={7}>
+                                            <CardLayout key={popMovie.id} photo={popMovie.poster_path} title={popMovie.title} />
+                                        </Col>
+                                    </>
+                                )
+                            })}
+                        </div>
                     </Row>
                 </section>
             </div>
