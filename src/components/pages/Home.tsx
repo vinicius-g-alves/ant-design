@@ -1,25 +1,29 @@
-import { Card, Col, Row } from "antd";
-import axios, { AxiosError, AxiosResponse } from "axios"
-import { useEffect, useState } from "react";
-import CardLayout from "../layouts/CardLayout";
-
-import { Typography } from 'antd';
-
+import { Carousel, Col, Progress, Row } from 'antd';
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
+import { Typography } from "antd"
+import CardLayout from '../layouts/CardLayoutPoster';
+import CardLayoutBackdrop from '../layouts/CardLayoutBackdrop';
+import { ResponsiveContainer, AreaChart, XAxis, YAxis, Area, Tooltip, CartesianGrid } from 'recharts';
 const { Title } = Typography;
 
 
 function Home() {
-    const [popular, setPopular] = useState([])
 
-    interface PopularMovies {
+    const [movieDiscover, setMovieDiscover] = useState([])
+    const [trending, setTrending] = useState([])
+    const [graph, setGraph] = useState([])
+
+
+    interface Movie {
         adult: boolean,
         backdrop_path: string,
-        genre_ids: number[],
+        genre_ids: number[]
         id: number,
         original_language: string,
         original_title: string,
         overview: string,
-        popularity: string,
+        popularity: number,
         poster_path: string,
         release_date: Date,
         title: string,
@@ -28,14 +32,52 @@ function Home() {
         vote_count: number
     }
 
-    // https://api.themoviedb.org/3/movie/popular?api_key=8238e0429d265d4d18abf1b53a68e7cb&language=pt-BR&page=1
+    interface TrendingMovie {
+        poster_path: string,
+        original_name: string,
+        origin_country: string[],
+        vote_average: number,
+        name: string,
+        first_air_date: Date,
+        vote_count: number,
+        backdrop_path: string,
+        overview: string,
+        genre_ids: number[]
+        id: number,
+        original_language: string,
+        popularity: number,
+        media_type: string
+    }
 
-    function getPopularMovies() {
+
+
+    function getMovieDiscover() {
         axios
             .get(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=pt-BR&page=1`)
             .then((response: AxiosResponse) => {
-                setPopular(response.data.results);
-                console.log("estado: ", popular)
+                setMovieDiscover(response.data.results);
+            })
+            .catch((error: AxiosError) => {
+                console.error(error);
+            });
+    }
+
+    function getTrendingMovies() {
+        axios
+            .get(`https://api.themoviedb.org/3/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}`)
+            .then((response: AxiosResponse) => {
+                setTrending(response.data.results);
+            })
+            .catch((error: AxiosError) => {
+                console.error(error);
+            });
+    }
+
+    function getTopRatedMovies() {
+        axios
+            .get(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=pt-BR&page=1`)
+            .then((response: AxiosResponse) => {
+                setGraph(response.data.results);
             })
             .catch((error: AxiosError) => {
                 console.error(error);
@@ -43,37 +85,130 @@ function Home() {
     }
 
     useEffect(() => {
-        getPopularMovies()
+        getMovieDiscover()
+        getTrendingMovies()
+        getTopRatedMovies()
     }, [])
+
 
     const styles: React.CSSProperties = {
         overflowX: "scroll",
         overflowY: "hidden",
-        whiteSpace: "nowrap"
+        whiteSpace: "nowrap",
+        height: "300px",
     }
 
+    const styleDirection: React.CSSProperties = {
+        display: "flex",
+        verticalAlign: "middle",
+    }
+
+    const data = [
+        {
+            "name": "Page A",
+            "uv": 4000,
+            "pv": 2400,
+            "amt": 2400
+        },
+        {
+            "name": "Page B",
+            "uv": 3000,
+            "pv": 1398,
+            "amt": 2210
+        },
+        {
+            "name": "Page C",
+            "uv": 2000,
+            "pv": 9800,
+            "amt": 2290
+        },
+        {
+            "name": "Page D",
+            "uv": 2780,
+            "pv": 3908,
+            "amt": 2000
+        },
+        {
+            "name": "Page E",
+            "uv": 1890,
+            "pv": 4800,
+            "amt": 2181
+        },
+        {
+            "name": "Page F",
+            "uv": 2390,
+            "pv": 3800,
+            "amt": 2500
+        },
+        {
+            "name": "Page G",
+            "uv": 3490,
+            "pv": 4300,
+            "amt": 2100
+        }
+    ]
+
     return (
-        <>
-            <div>
-                <section>
-                    <Title>Mais Populares</Title>
+        <div>
+            <Carousel autoplay style={{ height: 500, overflow: "hidden" }}>
+                {movieDiscover.map((movDisc: Movie) => {
+                    return (
+                        <div>
+                            <img style={{ width: "100%" }} src={`https://image.tmdb.org/t/p/original/${movDisc.backdrop_path}`} alt={movDisc.original_title} />
+                        </div>
+                    )
+                })}
+            </Carousel>
+
+            <section className="Trending">
+                <Title style={{ paddingTop: 50, fontFamily: "Ubuntu" }} level={2}> Tendências </Title>
+                <div style={styles}>
                     <Row>
-                        <div style={styles}>
-                            {popular.map((popMovie: PopularMovies) => {
+                        <div style={styleDirection}>
+                            {trending.map((trend: TrendingMovie) => {
                                 return (
                                     <>
-                                        <Col span={7}>
-                                            <CardLayout key={popMovie.id} photo={popMovie.poster_path} title={popMovie.title} />
-                                        </Col>
+                                        <div style={{ paddingLeft: "30px" }}>
+                                            <CardLayoutBackdrop key={trend.id} photo={trend.backdrop_path} />
+                                        </div>
                                     </>
                                 )
                             })}
                         </div>
                     </Row>
-                </section>
-            </div>
-        </>
-    )
-}
+                </div>
+            </section>
 
-export default Home
+            <section className='TopRated' style={{ paddingTop: 50 }}>
+                {graph.map((item:Movie) => {
+                    return (
+                        <>
+                            <AreaChart width={1200} height={250} data={data}
+                                margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                <defs>
+                                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                    </linearGradient>
+                                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                    </linearGradient>
+                                </defs>
+                                <XAxis dataKey="name" />
+                                <YAxis />
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <Tooltip />
+                                <Area type="monotone" dataKey="uv" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+                                <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                            </AreaChart>
+                        </>
+                    )
+                })}
+            </section>
+
+        </div>
+    )
+};
+
+export default Home;

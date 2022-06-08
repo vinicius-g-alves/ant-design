@@ -5,10 +5,10 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { Card, Col, MenuProps, Row } from 'antd';
+import { Card, MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const { Header, Content, Footer, Sider } = Layout;
