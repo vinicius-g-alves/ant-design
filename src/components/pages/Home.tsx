@@ -2,7 +2,6 @@ import { Carousel, Col, Progress, Row } from 'antd';
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { Typography } from "antd"
-import CardLayout from '../layouts/CardLayoutPoster';
 import CardLayoutBackdrop from '../layouts/CardLayoutBackdrop';
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Area, Tooltip, CartesianGrid } from 'recharts';
 const { Title } = Typography;

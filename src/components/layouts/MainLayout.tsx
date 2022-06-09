@@ -41,14 +41,14 @@ const items: MenuItem[] = [
         getItem('Alex', '5'),
     ]),
     getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem(<Link to="/details">Detalhes</Link>, '9', <FileOutlined />),
 ];
 
 
 
 function MainLayout({ children }: { children: JSX.Element }) {
     const [collapsed, setCollapsed] = useState(false);
-    const [showAppmoovies, setShowAppmoovies] = useState(false)
+    const [showAppmoovies, setShowAppmoovies] = useState(true)
     const showOrHide = () => setShowAppmoovies((showAppmoovies) => !showAppmoovies)
 
     interface ResearchMovies {

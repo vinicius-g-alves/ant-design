@@ -1,30 +1,7 @@
-function Details(props: any) {
+function Details() {
     return (
         <div>
-            <main>
-                <div className="details">
-                    <img className="img-details" src={`https://image.tmdb.org/t/p/w500/${props.dataResponse.poster_path}`} />
-                    <ul className="movie-data">
-                        <div className="movie-description">
-                            <li className="list-name">{props.dataResponse.title}</li>
-                            <li className="list-sinopse">
-                                Sinopse:{" "}
-                                <span className="description">
-                                    {props.dataResponse.overview}
-                                </span>
-                            </li>
-                            <li className="list-data">
-                                Data de Lançamento:{" "}
-                                <span>{props.dataResponse.release_date}</span>
-                            </li>
-                        </div>
-                        {/* <li className="list-elenco">Elenco:</li>  *NÃO FOI COLOCADO POIS NÃO EXISTE NA API */}
-                    </ul>
-                </div>
-                <button className="close-modal" onClick={props.handleClose}>
-                    Home
-                </button>
-            </main>
+           
         </div>
     );
 }

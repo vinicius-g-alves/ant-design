@@ -5,7 +5,7 @@ interface cardProps {
     photo: string,
     title: string,
     overview?: string,
-    key: number
+    key: number,
 }
 
 const styles: React.CSSProperties = {
@@ -16,7 +16,7 @@ const styles: React.CSSProperties = {
     textAlign: "center"
 }
 
-function CardLayoutPoster({ photo, title, overview, key }: cardProps) {
+function CardLayoutPoster({ photo, title, overview, key}: cardProps) {
     return (
         <>
             <Card

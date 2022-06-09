@@ -1,6 +1,7 @@
 import { Row, Typography } from "antd"
 import axios, { AxiosResponse, AxiosError } from "axios"
 import { useState, useEffect } from "react"
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import CardLayoutPeoples from "../layouts/CardLayoutPeoples";
 import CardLayoutPoster from "../layouts/CardLayoutPoster";
 import CardLayout from "../layouts/CardLayoutPoster"
@@ -12,7 +13,7 @@ function Movies() {
     const [upcoming, setUpcoming] = useState([])
     const [popularPeople, setPopularPeople] = useState([])
 
-    interface Movies {
+    interface Movie {
 
         adult: boolean,
         backdrop_path: string,
@@ -112,6 +113,16 @@ function Movies() {
         verticalAlign: "middle",
     }
 
+    function gerarCard(movie: Movie) {
+        return (
+            <Link to={`/details/${movie.id}`}>
+                <div style={{ paddingLeft: "30px" }}>
+                    <CardLayoutPoster key={movie.id} photo={movie.poster_path} title={movie.title} />
+                </div>
+            </Link>
+        )
+    }
+
     return (
         <>
             <div>
@@ -120,14 +131,8 @@ function Movies() {
                     <div style={styles}>
                         <Row>
                             <div style={styleDirection}>
-                                {popular.map((popMovie: Movies) => {
-                                    return (
-                                        <>
-                                            <div style={{ paddingLeft: "30px" }}>
-                                                <CardLayoutPoster key={popMovie.id} photo={popMovie.poster_path} title={popMovie.title} />
-                                            </div>
-                                        </>
-                                    )
+                                {popular.map((popMovie: Movie) => {
+                                    return gerarCard(popMovie)
                                 })}
                             </div>
                         </Row>
@@ -139,14 +144,9 @@ function Movies() {
                     <div style={styles}>
                         <Row>
                             <div style={styleDirection}>
-                                {upcoming.map((upcom: Movies) => {
-                                    return (
-                                        <>
-                                            <div style={{ paddingLeft: "30px" }}>
-                                                <CardLayoutPoster key={upcom.id} photo={upcom.poster_path} title={upcom.title} />
-                                            </div>
-                                        </>
-                                    )
+                                {upcoming.map((upcom: Movie) => {
+                                    console.log("id: ", upcom.id)
+                                    return gerarCard(upcom)
                                 })}
                             </div>
                         </Row>
