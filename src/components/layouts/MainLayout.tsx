@@ -5,10 +5,13 @@ import {
     TeamOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { Card, MenuProps } from 'antd';
+import { Card, Input, MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa'
+import axios, { AxiosResponse, AxiosError } from 'axios';
+import SearchMovies from '../pages/SearchMovies';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -41,8 +44,66 @@ const items: MenuItem[] = [
     getItem('Files', '9', <FileOutlined />),
 ];
 
+
+
 function MainLayout({ children }: { children: JSX.Element }) {
     const [collapsed, setCollapsed] = useState(false);
+    const [showAppmoovies, setShowAppmoovies] = useState(false)
+    const showOrHide = () => setShowAppmoovies((showAppmoovies) => !showAppmoovies)
+
+    interface ResearchMovies {
+        adult: boolean,
+        backdrop_path: string,
+        genre_ids: number[],
+        id: number,
+        original_language: string,
+        original_title: string,
+        overview: string,
+        popularity: number,
+        poster_path: string,
+        release_date: Date,
+        title: string,
+        video: boolean,
+        vote_average: number,
+        vote_count: number
+    }
+
+    const styleInput: React.CSSProperties = {
+        background:"none",
+        border:"none",
+        color:"#fff",
+        width: "85%",
+        alignItems: "center",
+        borderBottom: "2px solid white",
+        fontWeight:"bold"
+    }
+
+    const [search, setSearch] = useState<ResearchMovies[]>([])
+
+    function searchMovies() {
+        axios
+            .get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=pt-BR&query=${search}&page=1&include_adult=false&year=${search}`)
+            .then((response: AxiosResponse) => {
+                setSearch(response.data.results);
+            })
+            .catch((error: AxiosError) => {
+                console.error(error);
+            });
+    }
+
+    // {pesquisa.map((filme) => {
+    //     return (
+    //       <li className="li-resull-pesquisa">
+    //         <a href="#" onClick={() => handleOpen(filme)}>
+    //           {filme.title}
+    //           <div className="invisible-search-elements">
+    //             {filme.overview}
+    //             {filme.release_date}
+    //           </div>
+    //         </a>
+    //       </li>
+    //     );
+    //   })}
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -51,8 +112,10 @@ function MainLayout({ children }: { children: JSX.Element }) {
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center" }}>
-                    <strong>APPMOOVIES</strong>
+                <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center", alignItems:"center" }}>
+                    { showAppmoovies ? <strong>APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} />}
+                    <FaSearch style={{ position: "absolute", right: 20, top: 20 }} onClick={showOrHide} />
+
                 </Header>
                 <Content style={{ margin: '0 16px' }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>

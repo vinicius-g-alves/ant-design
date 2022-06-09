@@ -23,7 +23,7 @@ function CardLayoutPoster({ photo, title, overview, key }: cardProps) {
                 key={key}
                 hoverable
                 style={{ width: 230, marginTop: 30 }}
-                cover={<img src={`https://image.tmdb.org/t/p/w300/${photo}`} />}>
+                cover={<img src={`https://image.tmdb.org/t/p/original/${photo}`} />}>
                 <Meta style={styles} title={title} />
             </Card>
         </>
