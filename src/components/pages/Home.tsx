@@ -143,6 +143,7 @@ function Home() {
             </section>
 
             <section className='TopRated' style={{ paddingTop: 50 }}>
+                <Title style={{ paddingTop: 50, fontFamily: "Ubuntu" }} level={2}> Os Mais Votados </Title>
                 <ResponsiveContainer width="100%" height={300}>
                     <AreaChart data={data}>
                         <defs>

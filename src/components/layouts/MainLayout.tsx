@@ -41,7 +41,7 @@ const items: MenuItem[] = [
         getItem('Alex', '5'),
     ]),
     getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem(<Link to="/details">Detalhes</Link>, '9', <FileOutlined />),
+    getItem(<Link to="/details">Detalhes </Link>, '9', <FileOutlined />),
 ];
 
 
@@ -113,7 +113,7 @@ function MainLayout({ children }: { children: JSX.Element }) {
             </Sider>
             <Layout className="site-layout">
                 <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center", alignItems:"center" }}>
-                    { showAppmoovies ? <strong>APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} />}
+                    { showAppmoovies ? <strong style={{fontFamily:"Ubuntu"}} >APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} />}
                     <FaSearch style={{ position: "absolute", right: 20, top: 20 }} onClick={showOrHide} />
 
                 </Header>

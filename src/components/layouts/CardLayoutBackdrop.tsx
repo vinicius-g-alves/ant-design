@@ -1,5 +1,6 @@
-import { Card, Col, Progress, Row } from "antd"
+import { Card, Col, Progress, Row, Statistic } from "antd"
 import Meta from "antd/lib/card/Meta"
+import {LikeOutlined} from '@ant-design/icons'
 
 interface cardProps {
     photo: string,
@@ -16,7 +17,7 @@ const styles: React.CSSProperties = {
     textAlign: "center"
 }
 
-function CardLayoutBackdrop({ photo, title, overview, key}: cardProps) {
+function CardLayoutBackdrop({ photo, title, overview, key }: cardProps) {
     return (
         <>
             <Card
@@ -24,10 +25,8 @@ function CardLayoutBackdrop({ photo, title, overview, key}: cardProps) {
                 hoverable
                 style={{ width: 300, marginTop: 30 }}
                 cover={<img src={`https://image.tmdb.org/t/p/original/${photo}`} />}>
-                <Progress strokeColor={{
-                    '0%': '#0000CD',
-                    '100%': '#87d068',
-                }} style={{ position: "absolute", right: 10, bottom: 4 }} width={60} type="circle" percent={90} />
+                <Statistic value={1128} prefix={<LikeOutlined />} style={{position:"absolute", right:20, bottom:5}} />
+
             </Card>
 
 
