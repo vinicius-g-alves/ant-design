@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa'
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import SearchMovies from '../pages/SearchMovies';
+import { ResearchMovies } from '../interfaces/ResearchMovies';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -51,22 +52,7 @@ function MainLayout({ children }: { children: JSX.Element }) {
     const [showAppmoovies, setShowAppmoovies] = useState(true)
     const showOrHide = () => setShowAppmoovies((showAppmoovies) => !showAppmoovies)
 
-    interface ResearchMovies {
-        adult: boolean,
-        backdrop_path: string,
-        genre_ids: number[],
-        id: number,
-        original_language: string,
-        original_title: string,
-        overview: string,
-        popularity: number,
-        poster_path: string,
-        release_date: Date,
-        title: string,
-        video: boolean,
-        vote_average: number,
-        vote_count: number
-    }
+    
 
     const styleInput: React.CSSProperties = {
         background:"none",

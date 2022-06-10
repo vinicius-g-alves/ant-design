@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Typography } from "antd"
 import CardLayoutBackdrop from '../layouts/CardLayoutBackdrop';
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Area, Tooltip, CartesianGrid } from 'recharts';
+import { Movie } from '../interfaces/Movie.';
+import { Trending } from '../interfaces/Trending';
 const { Title } = Typography;
 
 
@@ -13,42 +15,6 @@ function Home() {
     const [trending, setTrending] = useState([])
     const [graph, setGraph] = useState([])
     const [search, setSearch] = useState([])
-
-
-    interface Movie {
-        adult: boolean,
-        backdrop_path: string,
-        genre_ids: number[]
-        id: number,
-        original_language: string,
-        original_title: string,
-        overview: string,
-        popularity: number,
-        poster_path: string,
-        release_date: Date,
-        title: string,
-        video: boolean,
-        vote_average: number,
-        vote_count: number
-    }
-
-    interface TrendingMovie {
-        poster_path: string,
-        original_name: string,
-        origin_country: string[],
-        vote_average: number,
-        name: string,
-        first_air_date: Date,
-        vote_count: number,
-        backdrop_path: string,
-        overview: string,
-        genre_ids: number[]
-        id: number,
-        original_language: string,
-        popularity: number,
-        media_type: string
-    }
-
 
 
     function getMovieDiscover() {
@@ -128,7 +94,7 @@ function Home() {
                 <div style={styles}>
                     <Row>
                         <div style={styleDirection}>
-                            {trending.map((trend: TrendingMovie) => {
+                            {trending.map((trend: Trending) => {
                                 return (
                                     <>
                                         <div style={{ paddingLeft: "30px" }}>
