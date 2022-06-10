@@ -35,7 +35,7 @@ function SearchMovies({image, title}:SearchProps) {
         <>
             <div>
                 <section className="Upcoming">
-                    <Title style={{ paddingTop: 50, fontFamily: "Ubuntu" }} level={2}> Próximos Lançamentos </Title>
+                    <Title style={{ paddingTop: 10, fontFamily: "Ubuntu" }} level={2}> Resultados </Title>
                     <div>
                         <Row>
                             {search.map((upcom: Movie) => {

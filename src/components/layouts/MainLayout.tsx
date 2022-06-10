@@ -67,43 +67,23 @@ function MainLayout({ children }: { children: JSX.Element }) {
         fontWeight: "bold"
     }
 
-    const [search, setSearch] = useState<ResearchMovies[]>([])
+    const [search, setSearch] = useState('')
+    const [movies, setMovies] = useState<Movie[]>([])
 
     function searchMovies() {
         axios
             .get(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=pt-BR&query=${search}&page=1&include_adult=false&year=${search}`)
             .then((response: AxiosResponse) => {
-                setSearch(response.data.results);
+                setMovies(response.data.results);
             })
             .catch((error: AxiosError) => {
                 console.error(error);
             });
     }
 
-    // {pesquisa.map((filme) => {
-    //     return (
-    //       <li className="li-resull-pesquisa">
-    //         <a href="#" onClick={() => handleOpen(filme)}>
-    //           {filme.title}
-    //           <div className="invisible-search-elements">
-    //             {filme.overview}
-    //             {filme.release_date}
-    //           </div>
-    //         </a>
-    //       </li>
-    //     );
-    //   })}
-
-    // function pesquisar(search) {
-    //     search.map((item) => {
-    //         return (
-    //             <div style={{ paddingLeft: "30px" }}>
-    //                 <CardLayoutPoster key={item.id} photo={item.poster_path} title={item.title} />
-    //             </div>
-    //         )
-    //     })
-
-    // }
+    useEffect(() => {
+        searchMovies()
+    },[])
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
@@ -113,7 +93,7 @@ function MainLayout({ children }: { children: JSX.Element }) {
             </Sider>
             <Layout className="site-layout">
                 <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center", alignItems: "center" }}>
-                    {showAppmoovies ? <strong style={{ fontFamily: "Ubuntu" }} >APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} />}
+                    {showAppmoovies ? <strong style={{ fontFamily: "Ubuntu" }} >APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} value={search} onChange={(e) => setSearch(e.target.value)} />}
                     <FaSearch style={{ position: "absolute", right: 20, top: 20 }} onClick={showOrHide} />
 
                 </Header>
@@ -124,7 +104,7 @@ function MainLayout({ children }: { children: JSX.Element }) {
                     </Breadcrumb>
                     <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                         <Card>
-                            {children}
+                            {search == '' ? children : <SearchMovies image={undefined} title={''}/>}
                         </Card>
                     </div>
                 </Content>
