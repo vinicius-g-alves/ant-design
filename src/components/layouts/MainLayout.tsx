@@ -4,6 +4,8 @@ import {
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
+    StarOutlined,
+    HomeOutlined
 } from '@ant-design/icons';
 import { Card, Input, MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
@@ -13,6 +15,8 @@ import { FaSearch } from 'react-icons/fa'
 import axios, { AxiosResponse, AxiosError } from 'axios';
 import SearchMovies from '../pages/SearchMovies';
 import { ResearchMovies } from '../interfaces/ResearchMovies';
+import { Movie } from '../interfaces/Movie';
+import CardLayoutPoster from './CardLayoutPoster';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -34,7 +38,7 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem(<Link to="/">Home</Link>, '1', <PieChartOutlined />),
+    getItem(<Link to="/">Home</Link>, '1', <HomeOutlined />),
     getItem(<Link to="/movies">Movies</Link>, '2', <DesktopOutlined />),
     getItem('User', 'sub1', <UserOutlined />, [
         getItem('Tom', '3'),
@@ -42,7 +46,7 @@ const items: MenuItem[] = [
         getItem('Alex', '5'),
     ]),
     getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem(<Link to="/details">Detalhes </Link>, '9', <FileOutlined />),
+    getItem(<Link to="/details">Favoritos </Link>, '9', <StarOutlined />),
 ];
 
 
@@ -52,16 +56,15 @@ function MainLayout({ children }: { children: JSX.Element }) {
     const [showAppmoovies, setShowAppmoovies] = useState(true)
     const showOrHide = () => setShowAppmoovies((showAppmoovies) => !showAppmoovies)
 
-    
 
     const styleInput: React.CSSProperties = {
-        background:"none",
-        border:"none",
-        color:"#fff",
+        background: "none",
+        border: "none",
+        color: "#fff",
         width: "85%",
         alignItems: "center",
         borderBottom: "2px solid white",
-        fontWeight:"bold"
+        fontWeight: "bold"
     }
 
     const [search, setSearch] = useState<ResearchMovies[]>([])
@@ -91,6 +94,17 @@ function MainLayout({ children }: { children: JSX.Element }) {
     //     );
     //   })}
 
+    // function pesquisar(search) {
+    //     search.map((item) => {
+    //         return (
+    //             <div style={{ paddingLeft: "30px" }}>
+    //                 <CardLayoutPoster key={item.id} photo={item.poster_path} title={item.title} />
+    //             </div>
+    //         )
+    //     })
+
+    // }
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
@@ -98,8 +112,8 @@ function MainLayout({ children }: { children: JSX.Element }) {
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center", alignItems:"center" }}>
-                    { showAppmoovies ? <strong style={{fontFamily:"Ubuntu"}} >APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} />}
+                <Header className="site-layout-background" style={{ padding: 0, color: "lightblue", fontSize: 25, textAlign: "center", alignItems: "center" }}>
+                    {showAppmoovies ? <strong style={{ fontFamily: "Ubuntu" }} >APPMOOVIES</strong> : <Input placeholder='Digite aqui' style={styleInput} />}
                     <FaSearch style={{ position: "absolute", right: 20, top: 20 }} onClick={showOrHide} />
 
                 </Header>

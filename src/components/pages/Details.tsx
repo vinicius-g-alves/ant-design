@@ -93,6 +93,7 @@ function Details() {
                     <Title style={{ fontFamily: "Ubuntu", color: "#111" }}> {details?.title} </Title>
                     <p style={{ paddingTop: 30, fontFamily: "Ubuntu", fontSize: 20, width: "60%", textAlign: "justify" }}>{details?.overview}</p>
                     <Statistic value={details?.popularity} prefix={<LikeOutlined />} style={{ paddingTop: 30 }} />
+                    <p style={{ paddingTop: 30, fontFamily: "Ubuntu", fontSize: 20, width: "60%", textAlign: "justify" }}>{details?.release_date}</p>
                 </div>
             </div>
 
@@ -107,7 +108,6 @@ function Details() {
                                         <div style={castStyles}>
                                             <img src={item.profile_path != null ? `https://image.tmdb.org/t/p/original/${item.profile_path}` : NO_IMAGE} alt="" width={100} />
                                             <Title level={4}>{item.name}</Title>
-                                            {/* <Title level={5}>{item.character}</Title> */}
                                         </div>
                                     </>
                                 )

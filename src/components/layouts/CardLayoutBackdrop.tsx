@@ -24,7 +24,9 @@ function CardLayoutBackdrop({ photo, title, overview, key }: cardProps) {
                 key={key}
                 hoverable
                 style={{ width: 300, marginTop: 30 }}
-                cover={<img src={`https://image.tmdb.org/t/p/original/${photo}`} />}>
+                cover={<img src={`https://image.tmdb.org/t/p/original/${photo}`} />}
+                title={title}
+                >
                 <Statistic value={1128} prefix={<LikeOutlined />} style={{position:"absolute", right:20, bottom:5}} />
 
             </Card>
