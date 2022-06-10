@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { Typography } from "antd"
 import CardLayoutBackdrop from '../layouts/CardLayoutBackdrop';
 import { ResponsiveContainer, AreaChart, XAxis, YAxis, Area, Tooltip, CartesianGrid } from 'recharts';
-import { Movie } from '../interfaces/Movie.';
+import { Movie } from '../interfaces/Movie';
 import { Trending } from '../interfaces/Trending';
+import { Link } from 'react-router-dom';
 const { Title } = Typography;
 
 
@@ -77,6 +78,17 @@ function Home() {
         }
     })
 
+
+    function gerarCard(movie: Trending) {
+        console.log("card: ", movie)
+        return (
+            <Link to={`/details/${movie.id}`}>
+                <div style={{ paddingLeft: "30px" }}>
+                    <CardLayoutBackdrop key={movie.id} photo={movie.backdrop_path} overview={movie.overview} />
+                </div>
+            </Link>
+        )
+    }
     return (
         <div>
             <Carousel autoplay style={{ height: 500, overflow: "hidden" }}>
@@ -95,13 +107,7 @@ function Home() {
                     <Row>
                         <div style={styleDirection}>
                             {trending.map((trend: Trending) => {
-                                return (
-                                    <>
-                                        <div style={{ paddingLeft: "30px" }}>
-                                            <CardLayoutBackdrop key={trend.id} photo={trend.backdrop_path} />
-                                        </div>
-                                    </>
-                                )
+                                return gerarCard(trend)
                             })}
                         </div>
                     </Row>

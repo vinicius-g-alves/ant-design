@@ -1,7 +1,7 @@
 import { Col, Row, Typography } from "antd"
 import axios, { AxiosResponse, AxiosError } from "axios"
 import { useState, useEffect } from "react"
-import { Movie } from "../interfaces/Movie.";
+import { Movie } from "../interfaces/Movie";
 import CardLayoutPeoples from "../layouts/CardLayoutPeoples";
 import CardLayoutPoster from "../layouts/CardLayoutPoster";
 import CardLayout from "../layouts/CardLayoutPoster"

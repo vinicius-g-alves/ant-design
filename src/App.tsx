@@ -5,13 +5,16 @@ import Details from './components/pages/Details';
 import Home from './components/pages/Home';
 import Movies from './components/pages/Movies';
 
-
 function App() {
   return (
     <Router>
       <MainLayout>
         <Routes>
 
+          {/* <Route path="details">
+            <Route path=":id" element={<Details />} />
+          </Route> */}
+          
           <Route path='/details/:id' element={<Details />}></Route>
 
           <Route path='/movies' element={<Movies />}></Route>

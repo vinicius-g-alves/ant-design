@@ -2,7 +2,7 @@ import { Row, Typography } from "antd"
 import axios, { AxiosResponse, AxiosError } from "axios"
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
-import { Movie } from "../interfaces/Movie.";
+import { Movie } from "../interfaces/Movie";
 import CardLayoutPoster from "../layouts/CardLayoutPoster";
 
 const { Title } = Typography;
@@ -66,6 +66,7 @@ function Movies() {
     }
 
     function gerarCard(movie: Movie) {
+        console.log("card: ", movie)
         return (
             <Link to={`/details/${movie.id}`}>
                 <div style={{ paddingLeft: "30px" }}>
